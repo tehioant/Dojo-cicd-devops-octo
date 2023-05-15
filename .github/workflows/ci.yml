@@ -11,7 +11,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
         with:
-          repository: '../../func-dojo-cicd-skool'
+          repository: 'https://github.com/tehioant/Dojo-cicd-devops-octo/tree/main/func-dojo-cicd-skool'
       - name: Test using Node.js
         uses: actions/setup-node@v1
         with:
