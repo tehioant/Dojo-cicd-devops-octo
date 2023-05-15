@@ -105,7 +105,7 @@ Par example: make test
 |                   .                   |                   .                   |
 |:-------------------------------------:|:-------------------------------------:|
 | ✅ Succès si tous les tests sont verts | 🔴 Echec si au moins 1 test est rouge |
-|    ![](./docs/exercise1-tests.png)    | ![](./docs/exercice1-tests-rouge.png) |
+|    ![](./docs/exercise1-tests.png)    |     ![](./docs/exercise1-red.png)     |
 
 **🏁 Test de recette** : Si la step `function-tests` s'exécute bien dans votre pipeline de CI,
 - elle devrait arborer une coche verte, 
