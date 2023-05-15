@@ -5,7 +5,28 @@ on:
   push:
 
 jobs:
-  example:
+  pages:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "example"
+      - uses: actions/checkout@v3
+
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: '1.15'
+
+      - name: Build
+        run: |
+          go install github.com/googlecodelabs/tools/claat@latest
+#pages:
+#  stage: publish
+#  image: "golang:1.17.5"
+#  script:
+#    - go install github.com/googlecodelabs/tools/claat@latest
+#    - cd instructions && claat export dojo.md && cd ..
+#    - mkdir .public
+#    - cp -r instructions/* .public
+#    - mv .public public
+#  artifacts:
+#    paths:
+#      - public
