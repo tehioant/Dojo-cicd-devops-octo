@@ -1,0 +1,346 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>Pipelines de CI</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/claat-public/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14"></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  id="dojo"
+                  title="Pipelines de CI"
+                  environment="web"
+                  feedback-link="https://gitlab.com/skool-data-fy22/dojo-3/-/issues/new">
+    
+      <google-codelab-step label="Overview" duration="30">
+        <p>Objectifs pédagogique :</p>
+<ul>
+<li>Découvrir les concepts autour de l&#39;intégration continue,</li>
+<li>Programmer un pipeline d&#39;intégration continue/une usine de développement logiciel,</li>
+<li>Obtenir du feedback fréquemment grâce aux tests automatisés,</li>
+<li>Mesurer la qualité de son code,</li>
+<li>Automatiser la production d&#39;artéfacts,</li>
+<li>Manipuler des registry d&#39;artéfacts.</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Les concepts de l&#39;intégration continue" duration="5">
+        <h2 is-upgraded>Quelques slides pour démarrer</h2>
+<p>👉 <a href="https://docs.google.com/presentation/d/1Sgs9ZuW2vG0EWFqxGvPRgzpNHMqoFk9-5da3MnIA8qQ/edit#slide=id.g804284dca3_0_176" target="_blank">Dispo sur le drive OCTO</a> .</p>
+<h2 is-upgraded>Ce qu&#39;il faut retenir</h2>
+<ul>
+<li>Comme disait Martin Fowler sur son blog :</li>
+</ul>
+<pre><code language="language-text" class="language-text">Continuous Integration is a software development practice where members of a team 
+integrate their work frequently, usually each person integrates at least daily, 
+leading to multiple integrations per day.
+</code></pre>
+<p>Pour permettre cela et produire du code de qualité, il faut de l&#39;automatisation et de l&#39;outillage 🛠</p>
+<p>Cet outillage, c&#39;est généralement un pipeline, et on va en construire un pendant ce dojo 💃</p>
+<p class="image-container"><img src="img/445b457cc8ea893c.png"></p>
+<p>Pour les curieux qui veulent aller + loin sur la notion d&#39;intégration continue :</p>
+<ul>
+<li><a href="https://www.martinfowler.com/articles/continuousIntegration.html" target="_blank">https://www.martinfowler.com/articles/continuousIntegration.html</a></li>
+<li><a href="https://blog.octo.com/tag/continuous-integration/" target="_blank">https://blog.octo.com/tag/continuous-integration/</a></li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="TP 1 - Tests automatisés (local)" duration="0">
+        <p><strong>🎯 Objectif</strong> : je veux obtenir du feedback sur le produit que je développe via les tests</p>
+<h2 is-upgraded>Tests en local</h2>
+<pre><code language="language-plaintext" class="language-plaintext">&gt; 🕵️‍ Automatiser, c&#39;est rendre automatique une action qui était jusque-là manuelle 💪
+</code></pre>
+<p><strong>👉 Commencez par lancer les tests en local !</strong></p>
+<p>Au passage, prenez en note dans un fichier :</p>
+<ul>
+<li>les pré-requis : les commandes ou paquets que vous avez dû installer pour pouvoir lancer les tests,</li>
+<li>la commande que vous avez exécuter pour lancer les tests,</li>
+<li>le résultat attendu : logs affichés en console, fichiers de rapport produits, ...</li>
+</ul>
+<p>🏁 Exemple de résultat attendu en lançant les tests en local avec</p>
+<pre><code language="language-shell" class="language-shell">$ PYTHONPATH=. pytest;
+</code></pre>
+<p class="image-container"><img src="img/b6b6f8122d0c9d78.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="TP 2 - Tests automatisés (CI)" duration="0">
+        <p><strong>🎯 Objectif</strong> : je veux obtenir du feedback sur mes tests à chaque commit poussé sur ma branche de travail.</p>
+<p><strong>Rendu attendu à la fin de ce TP2</strong> : en poussant du code sur ma branche de travail, un pipeline doit se lancer automatiquement sur gitlab. Ce pipeline doit permettre d&#39;exécuter les tests avec pytest, comme ceci quand les tests sont au vert :</p>
+<p class="image-container"><img src="img/f4c45fb792490ee7.png"></p>
+<h2 is-upgraded>Tests dans le pipeline de CI</h2>
+<p>👉 Editez le fichier <a href="../.gitlab-ci.yml" target="_blank">.gitlab-ci.yml</a> afin d&#39;y ajouter un stage nommé <code>python-tests</code>.</p>
+<p>Ce stage contiendra 1 step nommée <code>Tests</code> qui doit exécuter les tests python rédigés avec <code>pytest</code>.</p>
+<table>
+<tr><td colspan="1" rowspan="1"><p>a</p>
+</td><td colspan="1" rowspan="1"><p>b</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p>✅ Succès si tous les tests sont verts</p>
+</td><td colspan="1" rowspan="1"><p>🔴 Echec si au moins 1 test est rouge</p>
+</td></tr>
+<tr><td colspan="1" rowspan="1"><p class="image-container"><img src="img/f4c45fb792490ee7.png"></p>
+</td><td colspan="1" rowspan="1"><p class="image-container"><img src="img/d45047570ab41238.png"></p>
+</td></tr>
+</table>
+<p><strong>🏁 Test de recette</strong> : Si la step <code>python-tests</code> s&#39;exécute bien dans votre pipeline de CI,</p>
+<ul>
+<li>elle devrait arborer une coche verte, <ul>
+<li><img src="img/f4c45fb792490ee7.png"></li>
+</ul>
+</li>
+<li>et afficher les logs d&#39;exécution de la commande pytest en console. <ul>
+<li><img src="img/fe13b9d8eca562cf.png"></li>
+</ul>
+</li>
+</ul>
+<p>ℹ️ Si vous ne savez pas comment faire éditer le pipeline, la partie ci-après vous donnera un premier vernis sur les pipelines gitlab-ci et leur déclaration en YAML.</p>
+<h3 is-upgraded>🦊 Un mot sur les pipelines Gitlab si vous n&#39;avez jamais manipulé cet outil</h3>
+<p><code>Gitlab CI/CD</code> est un outil mis à disposition par Gitlab pour construire des pipelines de traitement.</p>
+<p>Ces pipelines peuvent être utilisés à des fins d&#39;intégration continue.</p>
+<p>Le pipeline est décrit au travers de code, dans un fichier <a href="../../.gitlab-ci.yml" target="_blank">.gitlab-ci.yml</a>, à la racine du repo en langage <a href="https://learnxinyminutes.com/docs/fr-fr/yaml-fr/" target="_blank"><code>YAML</code></a>, une spec de configuration similaire au <code>JSON</code>.</p>
+<p>La documentation de gitlab ainsi que les mot-clefs utilisables dans le fichier <code>.gitlab-ci.yml</code> sont consultables sur <a href="https://docs.gitlab.com/ee/ci/yaml/README.html" target="_blank">https://docs.gitlab.com/ee/ci/yaml/README.html</a>.</p>
+<h3 is-upgraded>🐍 Un exemple de fichier .gitlab-ci.yml, décrit en Python</h3>
+<p>Un exemple officiel en Python est disponible sur le repository Gitlab de Gitlab: <a href="https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Python.gitlab-ci.yml" target="_blank">https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Python.gitlab-ci.yml</a>, nous allons le décrire briévement ci-après:</p>
+<pre><code language="language-yaml" class="language-yaml">## Un exemple de fichier .gitlab-ci.yml
+
+# Le pipeline va s&#39;exécuter dans une image docker.
+# En l&#39;ocurrence, il s&#39;agit de l&#39;image python officielle
+# la plus à jour dans le dockerhub: https://hub.docker.com/r/library/python/tags/
+image: python:latest
+
+# Il est possible de définir des variables d&#39;environnement
+# qui seront disponibles dans la suite du pipeline.
+variables:
+  PIP_CACHE_DIR: &#34;$CI_PROJECT_DIR/.cache/pip&#34;
+
+# Déclaration des stages du pipeline dans lesquels les steps s&#39;insèreront
+stages:
+  - tests
+  - build
+
+# Une step nommée &#34;test&#34; est au stage nommé &#34;tests&#34; 
+test:
+  stage: tests
+  script:
+    - python setup.py test
+    - pip install tox flake8  # you can also use tox
+    - tox -e py36,flake8
+
+# Une step nommé &#34;packaging&#34; est ajoutée au stage nommé &#34;build&#34;.
+# Elle s&#39;exécutera si l&#39;étape &#34;test&#34; se termine avec succès.
+packaging:
+  stage: build 
+  dependencies: [&#34;code-quality&#34;]
+  script:
+    - python setup.py bdist_wheel
+  # La direction &#34;artifacts&#34; permet de sauvegarder
+  # des objets construits lors de l&#39;exécution du pipeline.
+  artifacts:
+    paths:
+      - dist/*.whl
+</code></pre>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="TP 3 (bonus)" duration="0">
+        <pre><code language="language-plaintext" class="language-plaintext">⚠️ Si vous vous sentez en retard; laissez de coté ce bonus; 
+Vous pourrez y revenir plus tard 📅 🎱 🔮
+</code></pre>
+<ol type="1">
+<li>Dans la step <code>python-tests</code>, faites en sorte que la commande <code>pytest</code> calcule la couverture de tests sur le module <code>gilded_rose</code> et produise la mesure de couverture en console. <ol type="1">
+<li>Vous pouvez utiliser <a href="https://pytest-cov.readthedocs.io/en/latest/readme.html#installation" target="_blank">le package pytest-cov</a> pour y arriver.</li>
+</ol>
+</li>
+<li>Faites en sorte que la commande <code>pytest</code> calcule la couverture de tests sur le module <code>gilded_rose</code> et produise les mesures dans un rapport au format HTML. <ol type="1">
+<li>pytest-cov permet de générer des rapports, <a href="https://pytest-cov.readthedocs.io/en/latest/reporting.html" target="_blank">consulter la documentation</a> pour voir comment faire ça.</li>
+</ol>
+</li>
+<li>Changez la destination de production de ces rapports afin de les produire dans un dossier <a href="../reports/pytest" target="_blank">reports/pytest/</a> à la racine du repo.</li>
+<li>Rendez les rapports du dossier <code>reports/</code> accessibles sous la forme d&#39;artéfacts. <ol type="1">
+<li>Un exemple d&#39;utilisation de <a href="https://docs.gitlab.com/ee/ci/pipelines/job_artifacts.html" target="_blank">la fonctionnalité d&#39;artéfact</a> est consultable dans l&#39;extrait de fichier yml du TP précédent (partie <em>🐍 Exemple décrit en Python</em>)</li>
+</ol>
+</li>
+</ol>
+<p><strong>🏁 Test de recette : les rapports sont disponibles dans gitlab-ci, via le bouton </strong></p>
+<p><strong><code>Browse</code></strong></p>
+<p><strong>, comme suit à droite :</strong></p>
+<p class="image-container"><img src="img/5b8e40a52fbeb8c8.png"></p>
+<p>👉 Le bouton <code>Browse</code> devrait vous permettre de consulter les rapports HTML que vous avez produit dans la step <code>python-tests</code> :</p>
+<p class="image-container"><img src="img/c7d992ab29b6789e.png"></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="TP 4 : Mesure de la qualité du code (local)" duration="0">
+        <pre><code language="language-plaintext" class="language-plaintext">🎯 Objectif : je veux obtenir du feedback sur la qualité du code sur commande.
+</code></pre>
+<p>👨‍👨‍👧‍👦 La qualité du code, c&#39;est une notion subjective qui se définit généralement en équipe. 📊 Une fois qu&#39;on l&#39;a défini collectivement, on peut définir des indicateurs pour la mesurer. 📦 Certains package Python peuvent produire de tels indicateurs.</p>
+<p><strong>Par exemple :</strong></p>
+<ul>
+<li><a href="https://github.com/PyCQA/flake8" target="_blank">flake8</a> est un linter de code Python sur le style. Le nombre de warnings peut donner une indication de la <em>compliance</em> du code que l&#39;on a produit avec les standards de style reconnus dans l&#39;écosystème Python. 👉 On pourrait définir que du code de qualité, c&#39;est du code qui respecte ces standards et dont le nombre de warning tend vers 0.</li>
+<li><a href="http://mypy-lang.org/" target="_blank">mypy</a> est un linter de code Python sur le <em>type hinting</em>. Le nombre de warnings levés donne une indication sur le nombre de fonctions où<ul>
+<li>le type hinting manque,</li>
+<li>le type hinting est présent mais erroné,</li>
+<li>etc ... 👉 On pourrait définir que du code de qualité, c&#39;est du code où le type hinting est utilisé systématiquement pour documenter le type de chaque argument et le type de la valeur de retour attendue. Donc du code où le nombre de warnings tend vers 0.</li>
+</ul>
+</li>
+<li><a href="https://github.com/pytest-dev/pytest-cov" target="_blank">pytest-cov</a> est un plugin de pytest qui permet de profiter l&#39;exécution des tests pour mesurer la couverture du code par les tests, c-a-d le ratio du nombre de lignes de code source traversé par les tests sur le nombre de lignes de code total. 👉 On pourrait définir que du code de qualité, c&#39;est du code où chaque ligne est testée, donc du code où le code coverage tend vers 100% (ou du moins dépasse un seuil élevé, ex: 80%).</li>
+</ul>
+<p>👉 Insérez vos métriques favorites ici pour mesurer la qualité du code ou auditer du code 🤓</p>
+<ul>
+<li>Respect des ratios de la pyramide de tests,</li>
+<li>Respect de la clean architecture,</li>
+<li>Absence de code mort,</li>
+<li>Nombre de bugs,</li>
+<li>Seuil de complexité cyclomatique,</li>
+<li>Métriques de sécurité (nombre de failles/CVE dans le code ou les dépendances),</li>
+<li>Métriques Accelerate (Lead time, MTTR, ...),</li>
+<li>...</li>
+</ul>
+<p>🏁 <strong>Objectifs :</strong></p>
+<pre><code language="language-plaintext" class="language-plaintext">&gt; 🕵️‍ Automatiser, c&#39;est rendre automatique une action qui était jusque-là manuelle 💪
+</code></pre>
+<p>👉 Commencez par essayer de mesurer la qualité du code en local !</p>
+<p>Sur votre poste local, installez les outils suivant, mesurez la qualité de votre code en ligne de commande et affichez les résultats de mesure en console avec :</p>
+<ul>
+<li>flake8</li>
+<li>mypy</li>
+<li>pytest-cov</li>
+<li>safety</li>
+<li>bandit</li>
+</ul>
+<p>🎯 Mesurez les indicateurs suivant sur vos postes, en local :</p>
+<ul>
+<li>Nombre de warnings sur le style du code avec flake8,</li>
+<li>Nombre de warnings sur le type hinting avec flake8,</li>
+<li>Faites des analyses de sécurité avec bandit et safety,</li>
+<li>Mesurer la compléxité du code avec Pylama</li>
+</ul>
+<p>Comme précédemment, prenez en note :</p>
+<ul>
+<li>les pré-requis : les commandes ou paquets que vous avez dû installer pour pouvoir lancer les tests,</li>
+<li>la commande que vous avez exécuter pour lancer les tests,</li>
+<li>le résultat attendu : logs affichés en console, fichiers de rapport produits, ...</li>
+</ul>
+<p>Cela nous servira pour reproduire cela dans notre pipeline de CI dans le prochain exercice.</p>
+<p>Des exemples de sorties console sont disponibles dans le fichier <a href="../docs/analysis.txt" target="_blank">instructions/docs/analysis.txt</a></p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="TP 5 : Mesure de la qualité du code (CI)" duration="0">
+        <pre><code language="language-plaintext" class="language-plaintext">🎯 Objectif : je veux obtenir du feedback sur la qualité du code automatiquement à chaque push d&#39;un commit.
+</code></pre>
+<p>Le pipeline doit permettre</p>
+<ul>
+<li>d&#39;éxécuter les tests avec pytest,</li>
+<li>puis si les tests sont verts; exécuter les étapes de mesure la qualité du code dans un stage <code>code-quality</code> comme ceci :</li>
+</ul>
+<p class="image-container"><img src="img/2e6d42508b61b185.png"></p>
+<ul>
+<li>✅ Le stage <code>code-quality</code> sera vert si votre base de code respecte les standards de flake8, mypy, pytest-cov, safety, bandit</li>
+<li>🔴 Le stage <code>code-quality</code> sera rouge si l&#39;un de ces outils d&#39;analyse relève au moins 1 warning.</li>
+</ul>
+<h2 is-upgraded>Autoriser l&#39;échec d&#39;une step</h2>
+<p>Dans le TP suivant, nous allons ajouter une step supplémentaire au pipeline pour packager automatiquement l&#39;application</p>
+<ul>
+<li>si les tests sont verts,</li>
+<li>et si le code produit est &#34;de qualité suffisante&#34;.</li>
+</ul>
+<p>En l&#39;état, le code Python n&#39;est pas &#34;parfait&#34; concernant les outils d&#39;analyse que nous utilisons : il y a quelques warnings notables avec mypy et flake8 par exemple.</p>
+<p>S&#39;il est utile de savoir que ces warnings existent, et qu&#39;il faudra les corriger, nous ne souhaitons pas pour autant que le pipeline de CI s&#39;arrête sur cette étape <code>code-quality</code>.</p>
+<p>Pour permettre au pipeline de continuer, gitlab propose la fonctionnalité <a href="https://docs.gitlab.com/ee/ci/yaml/#allow_failure" target="_blank">allow-failure</a>.</p>
+<p>🏁 <strong>Objectif : utilisez la fonctionnalité </strong></p>
+<p><strong><em>allow failure</em></strong></p>
+<p><strong> sur le stage </strong></p>
+<p><strong><code>code-quality</code></strong></p>
+<p><strong> pour permettre au pipeline de ne pas s&#39;arrêter même s&#39;il échoue sur celui-ci.</strong></p>
+<p><strong>Rendu attendu</strong> :</p>
+<ul>
+<li>✅ Le stage <code>code-quality</code> sera vert si votre base de code respecte les standards de flake8, mypy, pytest-cov, safety, bandit</li>
+<li>⚠️ Le stage <code>code-quality</code> sera orange si l&#39;un de ces outils d&#39;analyse relève au moins 1 warning.</li>
+<li><img src="img/807321af9245d9ff.png"></li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="TP 6 : Packager du code de qualité (local)" duration="0">
+        <pre><code language="language-plaintext" class="language-plaintext">🎯 Objectif : je veux packager du code automatiquement.
+</code></pre>
+<p>Dans le dojo précédent (rappelez-vous, c&#39;était il y a 1 mois 👴), on avait packagé notre application Python au format Wheel avec setuptools, et les commandes suivantes :</p>
+<pre><code language="language-shell" class="language-shell">cd dojo-3;
+pip install wheel;
+python -m build --wheel; ️
+</code></pre>
+<p>🏁 <strong>Objectif 1 : Packagez l&#39;application en local au format Wheel.</strong></p>
+<p>🍜 Test de recette : un fichier au format .whl devrait être apparu dans le dossier dist/ ❗️</p>
+<p>🏁 <strong>Objectif 2 : Changez la version de l&#39;application en 1.18.27 avant de la packager.</strong></p>
+<p>🍜 Test de recette : un fichier gilded_rose-1.18.27-py3-none-any.whl devrait être apparu dans le dossier dist/ ❗️</p>
+<p>ℹ️ Indice : un attribut <code>version</code> est défini dans le fichier setup.cfg. Vous ne devez pas le modifier, mais ça devrait vous mettre sur la piste.</p>
+<p>🏁 <strong>Objectif 3 : Produisez une version unique de l&#39;application automatiquement avec le package setuptools_scm.</strong></p>
+<p>De la documentation sur ce package est disponible ici : <a href="https://pypi.org/project/setuptools-scm/" target="_blank">https://pypi.org/project/setuptools-scm/</a></p>
+<p>🍜 Test de recette : un fichier au nom ressemblant à gilded_rose-0.1.dev5+g7b7b61f.d20220209-py3-none-any.whl devrait être apparu dans le dossier dist/ ❗️</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="TP 7 : Packager du code de qualité (en CI)" duration="0">
+        <pre><code language="language-plaintext" class="language-plaintext">🎯 Objectif : je veux packager du code automatiquement à chaque push d&#39;un commit, si et seulement si les tests passent et la qualité du code est acceptable.
+</code></pre>
+<p>Le pipeline doit permettre</p>
+<ul>
+<li>d&#39;éxécuter les tests avec pytest,</li>
+<li>puis si les tests sont verts : exécuter les étapes de mesure la qualité du code dans un stage <code>code-quality</code></li>
+<li>puis si les tests sont verts et la qualité OK : packager le code au format wheel avec une version unique.</li>
+</ul>
+<p>🏁 <strong>Objectif 1 : Packagez l&#39;application en local au format Wheel.</strong></p>
+<p>🍜 Test de recette : une nouvelle step <code>package-wheel</code> un nouveau stage <code>build</code> dans le pipeline de CI doit permettre de produire un fichier au format .whl comme ceci :</p>
+<p class="image-container"><img src="img/700760d1e274081d.png"></p>
+<p>️🏁 <strong>Objectif 2 : Rendre le package accessible en artéfact.</strong></p>
+<p>🍜 Test de recette : la step <code>package-wheel</code> doit exposer le contenu du dossier dist/ en artéfact afin de rendre le fichier .whl téléchargeable depuis l&#39;interface web :</p>
+<p class="image-container"><img src="img/dfaa16531f09437.png"></p>
+<p>️🏁 <strong>Objectif 3 : Testez le wheel en local via les artéfacts</strong></p>
+<p>🍜 Test de recette : le wheel téléchargé via l&#39;interface web et installé localement avec pip fonctionne comme suit :</p>
+<p class="image-container"><img src="img/7d5206aa43c59f9d.png"></p>
+<p>️🏁 <strong>Objectif 4 : Stocker le package dans une registry PyPI privé sur gitlab</strong></p>
+<p>Gitlab met à disposition une registry PyPI par repository de code pour y entreposer les wheel produit automatiquement par la CI.</p>
+<p><a href="https://docs.gitlab.com/ee/user/packages/pypi_repository/#authenticate-with-a-ci-job-token" target="_blank">En suivant la documentation</a> dans la partie <code>Authenticate with a CI job token</code>, modifiez la step <code>package-wheel</code> pour pousser le fichier .whl produit dans la registry PyPI du repository.</p>
+<p>🍜 Test de recette : le wheel produit par la step <code>package-wheel</code> est disponible dans la registry PyPI du repo :</p>
+<p class="image-container"><img src="img/35ebb92ec4465db0.png"></p>
+<p>️🏁 <strong>Objectif 5 (bonus) : Testez votre wheel, déposé dans la registry, après l&#39;avoir installé en local avec pip install</strong></p>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/claat-public/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/prettify.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/codelab-elements.js"></script>
+  <script src="//support.google.com/inapp/api.js"></script>
+
+</body>
+</html>

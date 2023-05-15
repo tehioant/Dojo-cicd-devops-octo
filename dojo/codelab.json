@@ -1,0 +1,25 @@
+{
+  "environment": "web",
+  "format": "html",
+  "prefix": "https://storage.googleapis.com",
+  "mainga": "UA-49880327-14",
+  "updated": "2023-05-12T17:31:02+02:00",
+  "id": "dojo",
+  "duration": 35,
+  "title": "Pipelines de CI",
+  "authors": "MHO",
+  "summary": "dojo - intégration continue",
+  "source": "instructions/dojo.md",
+  "theme": "",
+  "status": [
+    "published"
+  ],
+  "category": [
+    "exercice"
+  ],
+  "tags": [
+    "exercice"
+  ],
+  "feedback": "https://gitlab.com/skool-data-fy22/dojo-3/-/issues/new",
+  "url": "dojo"
+}
