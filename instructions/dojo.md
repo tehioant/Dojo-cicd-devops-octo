@@ -105,11 +105,11 @@ Par example: make test
 |                   .                   |                   .                   |
 |:-------------------------------------:|:-------------------------------------:|
 | ✅ Succès si tous les tests sont verts | 🔴 Echec si au moins 1 test est rouge |
-|    ![](./docs/exercice1-tests.png)    | ![](./docs/exercice1-tests-rouge.png) |
+|    ![](./docs/exercise1-tests.png)    | ![](./docs/exercice1-tests-rouge.png) |
 
 **🏁 Test de recette** : Si la step `function-tests` s'exécute bien dans votre pipeline de CI,
 - elle devrait arborer une coche verte, 
-  - ![](./docs/exercice1-tests.png) 
+  - ![](./docs/exercise1-tests.png) 
 - et afficher les logs d'exécution de la commande pytest en console.
   - ![](./docs/exercice1-logs-tests-en-ci.png)
 

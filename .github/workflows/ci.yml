@@ -8,5 +8,11 @@ jobs:
   function-test:
     runs-on: ubuntu-latest
     steps:
-      - name: Build
-        run: echo 'function-tests'
+      - name: Checkout code
+          uses: actions/checkout@v3
+      - name: Test using Node.js
+          uses: actions/setup-node@v1
+          with:
+            node-version: '16'
+      - run: npm install
+      - run: npm test
