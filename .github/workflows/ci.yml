@@ -5,7 +5,7 @@ on:
   push:
 
 jobs:
-  pages:
+  function-test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3

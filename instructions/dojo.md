@@ -1,16 +1,16 @@
-summary: dojo - intégration continue 
+summary: dojo - cicd devops
 id: dojo 
 categories: exercice 
 tags: exercice 
 status: Published 
-authors: MHO
-Feedback Link: https://gitlab.com/skool-data-fy22/dojo-3/-/issues/new
+authors: ANTE
+Feedback Link: https://github.com/tehioant/Dojo-cicd-devops-octo/issues/new
 
-# Pipelines de CI
+# DOJO - CI/CD DevOps
 
 ## Overview
 
-Duration: 30
+Duration: 4 hours
 
 Objectifs pédagogique :
 
@@ -19,83 +19,95 @@ Objectifs pédagogique :
 - Obtenir du feedback fréquemment grâce aux tests automatisés,
 - Mesurer la qualité de son code,
 - Automatiser la production d'artéfacts,
-- Manipuler des registry d'artéfacts.
+- Creer une pipeline de release par tag.
 
-## Les concepts de l'intégration continue
+👉 [Dispo sur le drive OCTO](https://docs.google.com/presentation/d/1kRS86ba0FT6grKMrwFyHaTTzEwl_cAeZE8Euqx3e9kM/edit#slide=id.g804284dca3_0_176).
 
-Duration: 5
+## Presentation
 
-### Quelques slides pour démarrer
+Duration: ?
 
-👉 [Dispo sur le drive OCTO](https://docs.google.com/presentation/d/1Sgs9ZuW2vG0EWFqxGvPRgzpNHMqoFk9-5da3MnIA8qQ/edit#slide=id.g804284dca3_0_176)
-.
+### Environment
 
-### Ce qu'il faut retenir
+Ce produit comprend une Azure Function App `func-dojo-cicd-skool` composé d'une fonctino en typescript nommé `DojoCicdSkool`.\
+Les developpeurs construisent une API.
+Pour permettre cela et produire du code de qualité, il faut de l'automatisation et de l'outillage 🛠
+Cet outillage, c'est généralement un pipeline, et on va en construire une utilisant Github actions pendant ce dojo 💃
 
-- Comme disait Martin Fowler sur son blog :
+Le repository a 2 pipelines qui ont besoin d'être créé
+* ci.yml
+* release.yml
+
 
 ```text
+Definition:
 Continuous Integration is a software development practice where members of a team 
 integrate their work frequently, usually each person integrates at least daily, 
 leading to multiple integrations per day.
 ```
 
-Pour permettre cela et produire du code de qualité, il faut de l'automatisation et de l'outillage 🛠
+La pipeline doit contenir les jobs suivants:
+- Lint
+- Unit tests
+- Build
+- Integration tests
 
-Cet outillage, c'est généralement un pipeline, et on va en construire un pendant ce dojo 💃
-
-![](./docs/pipeline.png)
+![](./docs/pipeline-dojo.png)
 
 Pour les curieux qui veulent aller + loin sur la notion d'intégration continue :
 
 - <https://www.martinfowler.com/articles/continuousIntegration.html>
 - <https://blog.octo.com/tag/continuous-integration/>
 
-## TP 1 - Tests automatisés (local)
+## Step 1 - Tests automatisés
 
-**🎯 Objectif** : je veux obtenir du feedback sur le produit que je développe via les tests
+**🎯 Goal** : je veux obtenir du feedback sur le produit que je développe via les tests
 
-### Tests en local
+### Local testing
 
 ```plaintext
 > 🕵️‍ Automatiser, c'est rendre automatique une action qui était jusque-là manuelle 💪
 ```
 
-**👉 Commencez par lancer les tests en local !** 
+**👉 First, run tests on you computer !** 
 
 Au passage, prenez en note dans un fichier :
 - les pré-requis : les commandes ou paquets que vous avez dû installer pour pouvoir lancer les tests,
-- la commande que vous avez exécuter pour lancer les tests,
 - le résultat attendu : logs affichés en console, fichiers de rapport produits, ...
 
-🏁 Exemple de résultat attendu en lançant les tests en local avec 
+🏁 Exemple de résultat attendu en lançant les tests en local avec
 
 ```shell
-$ PYTHONPATH=. pytest;
+$ npm test
 ```
 
-![](./docs/exercice1-exec-tests-local.png)
+![](./docs/local-tests-jest.png)
 
-## TP 2 - Tests automatisés (CI)
+### Tips
+
+Vous pouvez utiliser Makefile pour opérer votre projet et faciliter son utilisation par tous.\
+Par example: make test
+
+## Step 2 - Tests automatisés (CI)
 
 **🎯 Objectif** : je veux obtenir du feedback sur mes tests à chaque commit poussé sur ma branche de travail.
 
-**Rendu attendu à la fin de ce TP2** : en poussant du code sur ma branche de travail, un pipeline doit se lancer automatiquement sur gitlab. Ce pipeline doit permettre d'exécuter les tests avec pytest, comme ceci quand les tests sont au vert :
+**Rendu attendu à la fin de ce TP2** : en poussant du code sur ma branche de travail, un pipeline doit se lancer automatiquement sur github. Cette pipeline doit permettre d'exécuter les tests avec jest, comme ceci quand les tests sont au vert :
 
 ![](./docs/exercice1-tests.png)
 
 ### Tests dans le pipeline de CI
 
-👉 Editez le fichier [.gitlab-ci.yml](../.gitlab-ci.yml) afin d'y ajouter un stage nommé `python-tests`.
+👉 Edit the following file [ci.yml](../.github/workflows/ci.yml) and add a stage named `function-tests`.
 
-Ce stage contiendra 1 step nommée `Tests` qui doit exécuter les tests python rédigés avec `pytest`.
 
-|                   a                    |                   b                   |
-|:--------------------------------------:|:-------------------------------------:|
-| ✅ Succès si tous les tests sont verts  | 🔴 Echec si au moins 1 test est rouge |
-|    ![](./docs/exercice1-tests.png)     | ![](./docs/exercice1-tests-rouge.png) |
 
-**🏁 Test de recette** : Si la step `python-tests` s'exécute bien dans votre pipeline de CI,
+|                   .                   |                   .                   |
+|:-------------------------------------:|:-------------------------------------:|
+| ✅ Succès si tous les tests sont verts | 🔴 Echec si au moins 1 test est rouge |
+|    ![](./docs/exercice1-tests.png)    | ![](./docs/exercice1-tests-rouge.png) |
+
+**🏁 Test de recette** : Si la step `function-tests` s'exécute bien dans votre pipeline de CI,
 - elle devrait arborer une coche verte, 
   - ![](./docs/exercice1-tests.png) 
 - et afficher les logs d'exécution de la commande pytest en console.
