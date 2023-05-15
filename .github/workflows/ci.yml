@@ -18,15 +18,3 @@ jobs:
       - name: Build
         run: |
           go install github.com/googlecodelabs/tools/claat@latest
-#pages:
-#  stage: publish
-#  image: "golang:1.17.5"
-#  script:
-#    - go install github.com/googlecodelabs/tools/claat@latest
-#    - cd instructions && claat export dojo.md && cd ..
-#    - mkdir .public
-#    - cp -r instructions/* .public
-#    - mv .public public
-#  artifacts:
-#    paths:
-#      - public
