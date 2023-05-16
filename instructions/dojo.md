@@ -211,7 +211,7 @@ Vous pouvez customiser vos règles afin de filtrer vos autorisations.
 Sur votre poste local, installez les outils suivant, mesurez la qualité de votre code en ligne de commande et affichez les résultats de mesure en console avec :
 - es-lint
 - audit-ci
-- sonar
+- sonar (bonus)
 
 🎯 Mesurez les indicateurs suivant sur vos postes, en local :
 
