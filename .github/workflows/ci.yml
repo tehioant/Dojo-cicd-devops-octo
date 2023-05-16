@@ -25,9 +25,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
       - name: Test using Node.js
-          uses: actions/setup-node@v3
-          with:
-            node-version: '16'
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
       - run: npm install
         working-directory: ./func-dojo-cicd-skool
       - run: npm lint
