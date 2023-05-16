@@ -31,5 +31,5 @@ jobs:
           node-version: '16'
       - run: npm install
         working-directory: ./func-dojo-cicd-skool
-      - run: npm run audit-dependencies
+      - run: npm run sonar
         working-directory: ./func-dojo-cicd-skool
