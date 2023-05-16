@@ -1,4 +1,4 @@
-import { SkoolRequest } from '../model/SkoolRequest.ts';
+import { SkoolRequest } from '../model/SkoolRequest';
 
 export const getSkoolResponse = async function (request: SkoolRequest): Promise<string> {
   return 'Greetings '
