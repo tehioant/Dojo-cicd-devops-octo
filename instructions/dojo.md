@@ -86,15 +86,15 @@ $ npm test
 ### Tips
 
 Vous pouvez utiliser Makefile pour opérer votre projet et faciliter son utilisation par tous.\
-Par example: make test
+Par example: ```$ make test```
 
 ## Step 2 - Tests automatisés (CI)
 
-**🎯 Objectif** : je veux obtenir du feedback sur mes tests à chaque commit poussé sur ma branche de travail.
+**🎯 Objectif** : Je veux obtenir du feedback sur mes tests à chaque commit poussé sur ma branche de travail.
 
 **Rendu attendu à la fin de ce TP2** : en poussant du code sur ma branche de travail, un pipeline doit se lancer automatiquement sur github. Cette pipeline doit permettre d'exécuter les tests avec jest, comme ceci quand les tests sont au vert :
 
-![](./docs/exercice1-tests.png)
+![](./docs/exercise1-tests.png)
 
 ### Tests dans le pipeline de CI
 
@@ -113,89 +113,49 @@ Par example: make test
 - et afficher les logs d'exécution de la commande pytest en console.
   - ![](./docs/exercice1-logs-tests-en-ci.png)
 
-ℹ️ Si vous ne savez pas comment faire éditer le pipeline, la partie ci-après vous donnera un premier vernis sur les pipelines gitlab-ci et leur déclaration en YAML.
-
-#### 🦊 Un mot sur les pipelines Gitlab si vous n'avez jamais manipulé cet outil
-
-`Gitlab CI/CD` est un outil mis à disposition par Gitlab pour construire des pipelines de traitement.
-
-Ces pipelines peuvent être utilisés à des fins d'intégration continue.
-
-Le pipeline est décrit au travers de code, dans un fichier [.gitlab-ci.yml](../../.gitlab-ci.yml), à la racine du repo en langage [`YAML`](https://learnxinyminutes.com/docs/fr-fr/yaml-fr/), une spec de configuration similaire au `JSON`.
-
-La documentation de gitlab ainsi que les mot-clefs utilisables dans le fichier `.gitlab-ci.yml` sont consultables sur <https://docs.gitlab.com/ee/ci/yaml/README.html>.
-
-#### 🐍 Un exemple de fichier .gitlab-ci.yml, décrit en Python
-
-Un exemple officiel en Python est disponible sur le repository Gitlab de Gitlab: <https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Python.gitlab-ci.yml>, nous allons le décrire briévement ci-après:
+ℹ️ Si vous ne savez pas comment faire éditer le pipeline, la partie ci-après vous donnera un premier vernis sur les pipelines github et leur déclaration en YAML.
 
 ```yaml
-## Un exemple de fichier .gitlab-ci.yml
+## Un exemple de fichier ci.yml
 
-# Le pipeline va s'exécuter dans une image docker.
-# En l'ocurrence, il s'agit de l'image python officielle
-# la plus à jour dans le dockerhub: https://hub.docker.com/r/library/python/tags/
-image: python:latest
+env:
+  FOO: bar
 
-# Il est possible de définir des variables d'environnement
-# qui seront disponibles dans la suite du pipeline.
-variables:
-  PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
+jobs:
+  example-variable-1:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo “$FOO” # bar
 
-# Déclaration des stages du pipeline dans lesquels les steps s'insèreront
-stages:
-  - tests
-  - build
-
-# Une step nommée "test" est au stage nommé "tests" 
-test:
-  stage: tests
-  script:
-    - python setup.py test
-    - pip install tox flake8  # you can also use tox
-    - tox -e py36,flake8
-
-# Une step nommé "packaging" est ajoutée au stage nommé "build".
-# Elle s'exécutera si l'étape "test" se termine avec succès.
-packaging:
-  stage: build 
-  dependencies: ["code-quality"]
-  script:
-    - python setup.py bdist_wheel
-  # La direction "artifacts" permet de sauvegarder
-  # des objets construits lors de l'exécution du pipeline.
-  artifacts:
-    paths:
-      - dist/*.whl
+  example-variable-2:
+    runs-on: ubuntu-latest
+    env:
+      FOO: override_at_job_level
+    steps:
+      - run: echo “$FOO” # override_at_job_level
 ```
 
-## TP 3 (bonus)
+## Step 3 - Jest report (bonus)
 
 ```plaintext
 ⚠️ Si vous vous sentez en retard; laissez de coté ce bonus; 
 Vous pourrez y revenir plus tard 📅 🎱 🔮
 ```
 
-1. Dans la step `python-tests`, faites en sorte que la commande `pytest` calcule la couverture de tests sur le module `gilded_rose` et produise la mesure de couverture en console.
-   1. Vous pouvez utiliser [le package pytest-cov](https://pytest-cov.readthedocs.io/en/latest/readme.html#installation) pour y arriver.
-2. Faites en sorte que la commande `pytest` calcule la couverture de tests sur le module `gilded_rose` et produise les mesures dans un rapport au format HTML.
-   1. pytest-cov permet de générer des rapports, [consulter la documentation](https://pytest-cov.readthedocs.io/en/latest/reporting.html) pour voir comment faire ça.
-3. Changez la destination de production de ces rapports afin de les produire dans un dossier [reports/pytest/](../reports/pytest) à la racine du repo.
-4. Rendez les rapports du dossier `reports/` accessibles sous la forme d'artéfacts. 
-   1. Un exemple d'utilisation de [la fonctionnalité d'artéfact](https://docs.gitlab.com/ee/ci/pipelines/job_artifacts.html) est consultable dans l'extrait de fichier yml du TP précédent (partie _🐍 Exemple décrit en Python_)
+1. Dans le job `function-tests`, faites en sorte que `jest`  calcule la couverture de tests sur la fonction `DojoCicdSkool` et produise la mesure de couverture en console.
+   1. Vous pouvez utiliser [la commande --coverage](https://jestjs.io/docs/cli) pour y arriver.
+2. Changez la destination de production de ces rapports afin de les produire dans un dossier [reports/jest/](../reports/jest) à la racine du repo.
+3. Render les rapports du dossier `reports/` accessibles sous la forme d'artéfacts.
+4. Un exemple d'utilisation de [la fonctionnalité d'artéfact](https://docs.github.com/en/actions/using-workflows/storing-workflow-data-as-artifacts).
 
 **🏁 Test de recette : les rapports sont disponibles dans gitlab-ci, via le bouton `Browse`, comme suit à droite :**
 
-![](./docs/exercice1-artefacts.png)
+![](./docs/github-artifacts.png)
 
-👉 Le bouton `Browse` devrait vous permettre de consulter les rapports HTML que vous avez produit dans la step `python-tests` :
-
-![](./docs/exercice1-artefacts-rapports-html.png)
-
-## TP 4 : Mesure de la qualité du code (local)
+## Step 4 : Mesure de la qualité du code (local)
 
 ```plaintext
-🎯 Objectif : je veux obtenir du feedback sur la qualité du code sur commande.
+🎯 Objectif : Je veux obtenir du feedback sur la qualité du code sur commande.
 ```
 
 👨‍👨‍👧‍👦 La qualité du code, c'est une notion subjective qui se définit généralement en équipe.
@@ -204,7 +164,7 @@ Vous pourrez y revenir plus tard 📅 🎱 🔮
 
 **Par exemple :**
 
-- [flake8](https://github.com/PyCQA/flake8) est un linter de code Python sur le style. Le nombre de warnings peut donner une indication de
+- [es-lint](https://typescript-eslint.io/) est un linter de code Python sur le style. Le nombre de warnings peut donner une indication de
 la _compliance_ du code que l'on a produit avec les standards de style reconnus dans 
 l'écosystème Python.
 👉 On pourrait définir que du code de qualité, c'est du code qui respecte ces standards et dont
