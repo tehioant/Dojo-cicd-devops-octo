@@ -15,6 +15,6 @@ jobs:
         with:
           node-version: '16'
       - run: npm install
-         working-directory: ./func-dojo-cicd-skool
-       - run: npm test
-         working-directory: ./func-dojo-cicd-skool
+        working-directory: ./func-dojo-cicd-skool
+      - run: npm test
+        working-directory: ./func-dojo-cicd-skool
