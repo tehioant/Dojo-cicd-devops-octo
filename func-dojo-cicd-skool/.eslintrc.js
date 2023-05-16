@@ -17,9 +17,7 @@ module.exports = {
     extends: [
         'plugin:@typescript-eslint/recommended',
         'airbnb',
-      'plugin:prettier/recommended',
-      'plugin:sonarjs/recommended',
-      'prettier',
+        'prettier',
       // 'plugin:react/recommended' // If we need React
     ]
 };
