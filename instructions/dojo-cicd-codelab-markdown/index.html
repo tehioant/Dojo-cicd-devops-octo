@@ -44,8 +44,8 @@
     
       <google-codelab-step label="Presentation" duration="5">
         <h2 is-upgraded>Environment</h2>
-<p>Ce produit comprend une Azure Function App <code>func-dojo-cicd-skool</code> composé d&#39;une fonctino en typescript nommé <code>DojoCicdSkool</code>.<br> Les developpeurs construisent une API. Pour permettre cela et produire du code de qualité, il faut de l&#39;automatisation et de l&#39;outillage 🛠 Cet outillage, c&#39;est généralement un pipeline, et on va en construire une utilisant Github actions pendant ce dojo 💃</p>
-<p>Le repository a 2 pipelines qui ont besoin d&#39;être créé</p>
+<p>Ce produit comprend une Azure Function App <code>func-dojo-cicd-skool</code> composée d&#39;une fonction en TypeScript nommé <code>DojoCicdSkool</code>.<br> Les developpeurs construisent une API. Pour permettre cela et produire du code de qualité, il faut de l&#39;automatisation et de l&#39;outillage 🛠.<br> Cet outillage, il s&#39;agit généralement d&#39;une pipeline, et on va en construire une en utilisant Github actions pendant ce dojo 💃</p>
+<p>Le repository a 2 pipelines qui ont besoin d&#39;être créé :</p>
 <ul>
 <li>ci.yml</li>
 <li>release.yml</li>
@@ -95,8 +95,13 @@ leading to multiple integrations per day.
     
       <google-codelab-step label="Step 2 - Tests automatisés (CI)" duration="15">
         <p><strong>🎯 Objectif</strong> : Je veux obtenir du feedback sur mes tests à chaque commit poussé sur ma branche de travail.</p>
-<p><strong>Rendu attendu à la fin de ce TP2</strong> : en poussant du code sur ma branche de travail, un pipeline doit se lancer automatiquement sur github. Cette pipeline doit permettre d&#39;exécuter les tests avec jest, comme ceci quand les tests sont au vert :</p>
+<p><strong>Rendu attendu à la fin de ce TP2</strong> :<br> En poussant du code sur ma branche de travail, un pipeline doit se lancer automatiquement sur github. Cette pipeline doit permettre d&#39;exécuter les tests avec Jest, comme ceci quand les tests sont au vert :</p>
 <p class="image-container"><img src="img/93e09f70007a9b81.png"></p>
+<p>ℹ️ Tips:</p>
+<ul>
+<li>Vous pouvez utiliser <code>ubuntu</code> comme image de <strong>stage</strong>.</li>
+<li>Il est conseillé de définir les versions des objets que vous utilisez.</li>
+</ul>
 <h2 is-upgraded>Tests dans le pipeline de CI</h2>
 <p>👉 Edit the following file <a href="../.github/workflows/ci.yml" target="_blank">ci.yml</a> and add a stage named <code>function-tests</code>.</p>
 <table>
@@ -116,7 +121,7 @@ leading to multiple integrations per day.
 <li><img src="img/93e09f70007a9b81.png"></li>
 </ul>
 </li>
-<li>et afficher les logs d&#39;exécution de la commande pytest en console. <ul>
+<li>et afficher les logs d&#39;exécution de la commande Jest en console. <ul>
 <li><img src="img/20290cf61615b6ca.png"></li>
 </ul>
 </li>
@@ -192,12 +197,13 @@ Vous pourrez y revenir plus tard 📅 🎱 🔮
 <ul>
 <li>es-lint</li>
 <li>audit-ci</li>
-<li>sonar</li>
+<li>sonar (bonus)</li>
 </ul>
 <p>🎯 Mesurez les indicateurs suivant sur vos postes, en local :</p>
 <ul>
 <li>Nombre de warnings sur le style du code avec es-lint,</li>
 <li>Faites des analyses de sécurité avec audit-ci et sonar,</li>
+<li>Corrigez les erreurs fournies pas <strong>eslint</strong>.</li>
 </ul>
 <p>Comme précédemment, prenez en note :</p>
 <ul>
@@ -206,6 +212,8 @@ Vous pourrez y revenir plus tard 📅 🎱 🔮
 <li>le résultat attendu : logs affichés en console, fichiers de rapport produits, ...</li>
 </ul>
 <p>Cela nous servira pour reproduire cela dans notre pipeline de CI dans le prochain exercice.</p>
+<p>Aide :</p>
+<p>Pour corriger l&#39;erreur <code>error: Unexpected empty arrow function</code>, definir <em>empty function</em> en <code>undefined</code>.<br> Pour corriger l&#39;erreur <code>error: Prefer default export on a file with single export</code>, vous pouvez créer une <strong><em>rule</em></strong> dans le fichier <code>.eslintrc.js</code>.</p>
 
 
       </google-codelab-step>

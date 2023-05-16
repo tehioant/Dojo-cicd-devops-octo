@@ -243,7 +243,7 @@ Le pipeline doit permettre
 - d'exécuter les tests avec Jest, 
 - puis si les tests sont verts; exécuter les étapes de mesure la qualité du code dans un stage `code-quality` comme ceci :
 
-![](./docs/exercice2-code-analysis.png)
+![](./docs/pipeline-code-quality.png)
 
 - ✅ Le stage `code-quality` sera vert si votre base de code respecte les standards de es-lint, audit-ci, sonar (en bonus).
 - 🔴 Le stage `code-quality` sera rouge si l'un de ces outils d'analyse relève au moins 1 warning.
