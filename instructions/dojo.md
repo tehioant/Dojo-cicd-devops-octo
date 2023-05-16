@@ -28,12 +28,12 @@ Duration: 0:05:00
 
 ### Environment
 
-Ce produit comprend une Azure Function App `func-dojo-cicd-skool` composé d'une fonctino en typescript nommé `DojoCicdSkool`.\
+Ce produit comprend une Azure Function App `func-dojo-cicd-skool` composée d'une fonction en TypeScript nommé `DojoCicdSkool`.\
 Les developpeurs construisent une API.
-Pour permettre cela et produire du code de qualité, il faut de l'automatisation et de l'outillage 🛠
-Cet outillage, c'est généralement un pipeline, et on va en construire une utilisant Github actions pendant ce dojo 💃
+Pour permettre cela et produire du code de qualité, il faut de l'automatisation et de l'outillage 🛠. \
+Cet outillage, il s'agit généralement d'une pipeline, et on va en construire une en utilisant Github actions pendant ce dojo 💃
 
-Le repository a 2 pipelines qui ont besoin d'être créé
+Le repository a 2 pipelines qui ont besoin d'être créé :
 * ci.yml
 * release.yml
 
@@ -93,9 +93,14 @@ Duration: 0:15:00
 
 **🎯 Objectif** : Je veux obtenir du feedback sur mes tests à chaque commit poussé sur ma branche de travail.
 
-**Rendu attendu à la fin de ce TP2** : en poussant du code sur ma branche de travail, un pipeline doit se lancer automatiquement sur github. Cette pipeline doit permettre d'exécuter les tests avec jest, comme ceci quand les tests sont au vert :
+**Rendu attendu à la fin de ce TP2** : \
+En poussant du code sur ma branche de travail, un pipeline doit se lancer automatiquement sur github. Cette pipeline doit permettre d'exécuter les tests avec Jest, comme ceci quand les tests sont au vert :
 
 ![](./docs/exercise1-tests.png)
+
+ℹ️ Tips: 
+- Vous pouvez utiliser `ubuntu` comme image de **stage**.
+- Il est conseillé de définir les versions des objets que vous utilisez.
 
 ### Tests dans le pipeline de CI
 
@@ -111,7 +116,7 @@ Duration: 0:15:00
 **🏁 Test de recette** : Si la step `function-tests` s'exécute bien dans votre pipeline de CI,
 - elle devrait arborer une coche verte, 
   - ![](./docs/exercise1-tests.png) 
-- et afficher les logs d'exécution de la commande pytest en console.
+- et afficher les logs d'exécution de la commande Jest en console.
   - ![](./docs/exercice1-logs-tests-en-ci.png)
 
 ℹ️ Si vous ne savez pas comment faire éditer le pipeline, la partie ci-après vous donnera un premier vernis sur les pipelines github et leur déclaration en YAML.

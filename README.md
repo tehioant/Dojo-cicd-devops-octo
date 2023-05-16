@@ -17,6 +17,9 @@ This DOJO introduces skoolers hands-on to CI/CD using Gitlab and by deploying so
 ## Set up
 
 - Create a fork of the DOJO repository then clone your fork.
+   1. You can rename the repository if necessary
+   2. Select *copy the main branch only*
+   3. Click created fork
 
 ![](./instructions/docs/create-fork.png)
 
@@ -28,6 +31,8 @@ cd Dojo-cicd-devops-octo
 ./codelab-script.sh
 ```
 
+
+
 ## Intructions
 
 Follow instructions on codelabs.
@@ -37,7 +42,16 @@ cd instructions
 claat export dojo.md
 claat serve
 ```
+Expected result:
 
+```
+$ claat export dojo.md
+ok      dojo-cicd-codelab-markdown
+
+$ claat serve
+Serving codelabs on localhost:9090, opening browser tab now...
+```
+On your browser click on `dojo/` \
 You can kill the running server as it is static.
 
 ## Authors and acknowledgment
@@ -58,3 +72,7 @@ Published
 - exercice3-build-stage.png
 
 - write script install go & claat
+
+- redefinir les noms des stages selon le dojo (part presentation)
+- for main branch rm options on jest (package.json) && rm -- --json --outputFile=output.json on makefile
+- setup test to be red on main

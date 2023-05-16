@@ -7,7 +7,7 @@
     "watch": "tsc -w",
     "prestart": "npm run build",
     "start": "func start",
-    "test": "jest --forceExit --detectOpenHandles --coverage",
+    "test": "jest ",
     "lint": "eslint './DojoCicdSkool/src/**/*.ts'",
     "lint-fix": "eslint './DojoCicdSkool/src/**/*.{tsx,ts}' --fix",
     "sonar": "sonarqube-verify",

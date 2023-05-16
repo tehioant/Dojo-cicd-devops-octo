@@ -8,19 +8,4 @@ jobs:
   function-test:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-      - name: Test using Node.js
-        uses: actions/setup-node@v1
-        with:
-          node-version: '16'
-      - run: npm install
-        working-directory: ./func-dojo-cicd-skool
-      - run: npm test
-        working-directory: ./func-dojo-cicd-skool
-
-  pages:
-    runs-on: ubuntu-latest
-    steps:
-      - run: |
-          go install github.com/googlecodelabs/tools/claat@latest
+      - run: make tests
