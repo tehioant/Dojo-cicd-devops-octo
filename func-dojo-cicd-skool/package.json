@@ -16,7 +16,6 @@
     "stop-local-sonarqube": "docker-compose -f docker-compose.sonar.yml down"
   },
   "devDependencies": {
-    "@azure/functions": "^3.5.1",
     "@types/node": "16.x",
     "@typescript-eslint/eslint-plugin": "5.59.6",
     "@typescript-eslint/parser": "^5.59.6",
@@ -34,6 +33,7 @@
     "typescript": "5.0.4"
   },
   "dependencies": {
+    "@azure/functions": "^3.5.1",
     "audit-ci": "^6.6.1",
     "jest-cli": "^29.5.0",
     "jest-html-reporter": "^3.9.0"

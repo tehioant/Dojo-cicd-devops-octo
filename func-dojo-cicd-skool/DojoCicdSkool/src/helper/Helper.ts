@@ -1,5 +1,14 @@
 import { Context, Form, HttpRequest, Logger } from '@azure/functions';
 
+const createLogger = (): Logger => {
+  const logger = () => undefined;
+  logger.error = () => undefined;
+  logger.info = () => undefined;
+  logger.verbose = () => undefined;
+  logger.warn = () => {};
+  return <Logger>logger;
+};
+
 export const buildContext = (): Context => ({
   bindingData: undefined,
   bindingDefinitions: [],
@@ -8,7 +17,7 @@ export const buildContext = (): Context => ({
   invocationId: '',
   log: createLogger(),
   traceContext: undefined,
-  done: () => {},
+  done: () => undefined,
 });
 
 export const buildHttpRequest = (): HttpRequest => ({
@@ -23,12 +32,3 @@ export const buildHttpRequest = (): HttpRequest => ({
   url: '',
   user: undefined,
 });
-
-const createLogger = (): Logger => {
-  const logger = () => {};
-  logger.error = () => {};
-  logger.info = () => {};
-  logger.verbose = () => {};
-  logger.warn = () => {};
-  return logger;
-};

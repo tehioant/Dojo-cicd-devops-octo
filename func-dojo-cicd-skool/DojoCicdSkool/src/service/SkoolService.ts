@@ -1,5 +1,4 @@
-import { Context } from '@azure/functions';
-import { SkoolRequest } from '../model/SkoolRequest';
+import { SkoolRequest } from '../model/SkoolRequest.ts';
 
 export const getSkoolResponse = async function (request: SkoolRequest): Promise<string> {
   return 'Greetings '

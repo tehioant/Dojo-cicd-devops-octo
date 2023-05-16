@@ -217,6 +217,7 @@ Sur votre poste local, installez les outils suivant, mesurez la qualité de votr
 
 - Nombre de warnings sur le style du code avec es-lint,
 - Faites des analyses de sécurité avec audit-ci et sonar,
+- Corrigez les erreurs fournies pas **eslint**.
 
 Comme précédemment, prenez en note :
 - les pré-requis : les commandes ou paquets que vous avez dû installer pour pouvoir lancer les tests,
@@ -224,6 +225,12 @@ Comme précédemment, prenez en note :
 - le résultat attendu : logs affichés en console, fichiers de rapport produits, ...
 
 Cela nous servira pour reproduire cela dans notre pipeline de CI dans le prochain exercice.
+
+
+Aide :
+
+Pour corriger l'erreur ```error: Unexpected empty arrow function```, definir *empty function* en ```undefined```. \
+Pour corriger l'erreur ```error: Prefer default export on a file with single export```, vous pouvez créer une ***rule*** dans le fichier ```.eslintrc.js```.
 
 ## Step 5 : Mesure de la qualité du code (CI)
 Duration: 0:20:00
