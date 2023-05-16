@@ -31,7 +31,6 @@
     "typescript": "5.0.4"
   },
   "dependencies": {
-    "@azure/functions": "^3.5.1",
     "audit-ci": "^6.6.1",
     "eslint-config-prettier": "^8.8.0",
     "jest-cli": "^29.5.0",
