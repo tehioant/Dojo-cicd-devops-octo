@@ -148,7 +148,7 @@ Vous pourrez y revenir plus tard 📅 🎱 🔮
 3. Render les rapports du dossier `reports/` accessibles sous la forme d'artéfacts.
 4. Un exemple d'utilisation de [la fonctionnalité d'artéfact](https://docs.github.com/en/actions/using-workflows/storing-workflow-data-as-artifacts).
 
-**🏁 Test de recette : les rapports sont disponibles dans gitlab-ci, via le bouton `Browse`, comme suit à droite :**
+**🏁 Test de recette : les rapports sont disponibles dans la partie Artifacts comme suit:**
 
 ![](./docs/github-artifacts.png)
 
@@ -160,29 +160,27 @@ Vous pourrez y revenir plus tard 📅 🎱 🔮
 
 👨‍👨‍👧‍👦 La qualité du code, c'est une notion subjective qui se définit généralement en équipe.
 📊 Une fois qu'on l'a défini collectivement, on peut définir des indicateurs pour la mesurer.
-📦 Certains package Python peuvent produire de tels indicateurs. 
+📦 Certains package Typescript peuvent produire de tels indicateurs.
 
 **Par exemple :**
 
-- [es-lint](https://typescript-eslint.io/) est un linter de code Python sur le style. Le nombre de warnings peut donner une indication de
+- [es-lint](https://typescript-eslint.io/) est un linter de code TypeScript sur le style. Le nombre de warnings peut donner une indication de
 la _compliance_ du code que l'on a produit avec les standards de style reconnus dans 
-l'écosystème Python.
-👉 On pourrait définir que du code de qualité, c'est du code qui respecte ces standards et dont
+l'écosystème TypeScript.
+👉 On pourrait définir que du code de qualité, c'est du code qui respecte ces standards définis par l'équipe et dont
 le nombre de warning tend vers 0.
+**Es-lint** inclus **prettier** dans son package. Vous pouvez définir vos règles d'indentation pour conserver une continuité dans l'équipe.
 
-- [mypy](http://mypy-lang.org/) est un linter de code Python sur le _type hinting_. Le nombre de warnings levés donne une indication sur
-le nombre de fonctions où 
-  - le type hinting manque,
-  - le type hinting est présent mais erroné,
-  - etc ...
-👉 On pourrait définir que du code de qualité, c'est du code où 
-le type hinting est utilisé systématiquement pour documenter le type de chaque argument 
-et le type de la valeur de retour attendue. Donc du code où le nombre de warnings tend vers 0.
 
-- [pytest-cov](https://github.com/pytest-dev/pytest-cov) est un plugin de pytest qui permet de profiter l'exécution des tests pour 
-mesurer la couverture du code par les tests, c-a-d le ratio du nombre de lignes de code source traversé par les tests sur le nombre de lignes de code total.
+- [sonarqube](https://docs.sonarqube.org/9.6/analyzing-source-code/languages/javascript-typescript-css/)
+ est un outil de revue de code automatique et autogérer qui vous aide systématiquement à fournir du **clean code**.
+Il donne un grand nombre d'indications sur votre code et vos tests. Il permet de mesurer la couverture du code par les tests, c-a-d le ratio du nombre de lignes de code source traversé par les tests sur le nombre de lignes de code total.
+Il permet aussi de detecter un certains nombre de failles de sécurité tant dans le code que dans les CVE (Common vulnerabilities and exposures).
 👉 On pourrait définir que du code de qualité, c'est du code où chaque ligne est testée, 
 donc du code où le code coverage tend vers 100% (ou du moins dépasse un seuil élevé, ex: 80%).
+
+- [audit-ci](https://github.com/IBM/audit-ci) est un outil concu pour le continuous integration qui nous permet de prevenir l'intégration de code et de paquets contenant des vulnérabilités.
+Vous pouvez customiser vos règles afin de filtrer vos autorisations.
 
 👉 Insérez vos métriques favorites ici pour mesurer la qualité du code ou auditer du code 🤓
 - Respect des ratios de la pyramide de tests,
@@ -203,18 +201,14 @@ donc du code où le code coverage tend vers 100% (ou du moins dépasse un seuil 
 👉 Commencez par essayer de mesurer la qualité du code en local ! 
 
 Sur votre poste local, installez les outils suivant, mesurez la qualité de votre code en ligne de commande et affichez les résultats de mesure en console avec :
-- flake8
-- mypy
-- pytest-cov
-- safety
-- bandit
+- es-lint
+- audit-ci
+- sonar
 
 🎯 Mesurez les indicateurs suivant sur vos postes, en local :
 
-- Nombre de warnings sur le style du code avec flake8,
-- Nombre de warnings sur le type hinting avec flake8,
-- Faites des analyses de sécurité avec bandit et safety,
-- Mesurer la compléxité du code avec Pylama
+- Nombre de warnings sur le style du code avec es-lint,
+- Faites des analyses de sécurité avec audit-ci et sonar,
 
 Comme précédemment, prenez en note :
 - les pré-requis : les commandes ou paquets que vous avez dû installer pour pouvoir lancer les tests,
@@ -223,21 +217,19 @@ Comme précédemment, prenez en note :
 
 Cela nous servira pour reproduire cela dans notre pipeline de CI dans le prochain exercice.
 
-Des exemples de sorties console sont disponibles dans le fichier [instructions/docs/analysis.txt](../docs/analysis.txt)
-
-## TP 5 : Mesure de la qualité du code (CI)
+## Step 5 : Mesure de la qualité du code (CI)
 
 ```plaintext
-🎯 Objectif : je veux obtenir du feedback sur la qualité du code automatiquement à chaque push d'un commit.
+🎯 Objectif : Je veux obtenir du feedback sur la qualité du code automatiquement à chaque push d'un commit.
 ```
 
 Le pipeline doit permettre 
-- d'éxécuter les tests avec pytest, 
+- d'exécuter les tests avec Jest, 
 - puis si les tests sont verts; exécuter les étapes de mesure la qualité du code dans un stage `code-quality` comme ceci :
 
 ![](./docs/exercice2-code-analysis.png)
 
-- ✅ Le stage `code-quality` sera vert si votre base de code respecte les standards de flake8, mypy, pytest-cov, safety, bandit
+- ✅ Le stage `code-quality` sera vert si votre base de code respecte les standards de es-lint, audit-ci, sonar (en bonus).
 - 🔴 Le stage `code-quality` sera rouge si l'un de ces outils d'analyse relève au moins 1 warning.
 
 ### Autoriser l'échec d'une step
@@ -246,17 +238,17 @@ Dans le TP suivant, nous allons ajouter une step supplémentaire au pipeline pou
 - si les tests sont verts,
 - et si le code produit est "de qualité suffisante".
 
-En l'état, le code Python n'est pas "parfait" concernant les outils d'analyse que nous utilisons : il y a quelques warnings notables avec mypy et flake8 par exemple.
+En l'état, le code Python n'est pas "parfait" concernant les outils d'analyse que nous utilisons : il y a quelques warnings notables avec jest et sonar par exemple.
 
 S'il est utile de savoir que ces warnings existent, et qu'il faudra les corriger, nous ne souhaitons pas pour autant que le pipeline de CI s'arrête sur cette étape `code-quality`.
 
-Pour permettre au pipeline de continuer, gitlab propose la fonctionnalité [allow-failure](https://docs.gitlab.com/ee/ci/yaml/#allow_failure).
+Pour permettre au pipeline de continuer, github propose la fonctionnalité [continue-on-error](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idstepscontinue-on-error).
 
-🏁 **Objectif : utilisez la fonctionnalité _allow failure_ sur le stage `code-quality` pour permettre au pipeline de ne pas s'arrêter même s'il échoue sur celui-ci.**
+🏁 **Objectif : utilisez la fonctionnalité _continue-on-error_ sur le stage `code-quality` pour permettre au pipeline de ne pas s'arrêter même s'il échoue sur celui-ci.**
 
 **Rendu attendu** :
 
-- ✅ Le stage `code-quality` sera vert si votre base de code respecte les standards de flake8, mypy, pytest-cov, safety, bandit
+- ✅ Le stage `code-quality` sera vert si votre base de code respecte les standards de es-lint, audit-ci, sonar (en bonus).
 - ⚠️ Le stage `code-quality` sera orange si l'un de ces outils d'analyse relève au moins 1 warning.
 
 - ![](./docs/exercice2-allow-failure.png)
@@ -264,31 +256,21 @@ Pour permettre au pipeline de continuer, gitlab propose la fonctionnalité [allo
 ## TP 6 : Packager du code de qualité (local)
 
 ```plaintext
-🎯 Objectif : je veux packager du code automatiquement.
+🎯 Objectif : Je veux packager du code automatiquement.
 ```
-
-Dans le dojo précédent (rappelez-vous, c'était il y a 1 mois 👴), on avait packagé notre application Python au format Wheel avec setuptools, et les commandes suivantes :
 
 ```shell
-cd dojo-3;
-pip install wheel;
-python -m build --wheel; ️
+cd func-dojo-cicd-skool;
+npm run build
 ```
-🏁 **Objectif 1 : Packagez l'application en local au format Wheel.**
+🏁 **Objectif 1 : Packagez l'application en local.**
 
-🍜 Test de recette : un fichier au format .whl devrait être apparu dans le dossier dist/ ❗️
+🍜 Test de recette : un dossier de la fonction devrait être apparu dans le dossier dist/ ❗️
 
 🏁 **Objectif 2 : Changez la version de l'application en 1.18.27 avant de la packager.**
 
-🍜 Test de recette : un fichier gilded_rose-1.18.27-py3-none-any.whl devrait être apparu dans le dossier dist/ ❗️
-
-ℹ️ Indice : un attribut `version` est défini dans le fichier setup.cfg. Vous ne devez pas le modifier, mais ça devrait vous mettre sur la piste.
-
-🏁 **Objectif 3 : Produisez une version unique de l'application automatiquement avec le package setuptools_scm.**
-
-De la documentation sur ce package est disponible ici : <https://pypi.org/project/setuptools-scm/>
-
-🍜 Test de recette : un fichier au nom ressemblant à gilded_rose-0.1.dev5+g7b7b61f.d20220209-py3-none-any.whl devrait être apparu dans le dossier dist/ ❗️
+ℹ️ Tips: vous pouvez utiliser la commande ```npm version patch``` \
+🍜 Test de recette : le package possède la version **1.18.27**, use ```npm version```
 
 ## TP 7 : Packager du code de qualité (en CI)
 
@@ -297,37 +279,32 @@ De la documentation sur ce package est disponible ici : <https://pypi.org/projec
 ```
 
 Le pipeline doit permettre 
-- d'éxécuter les tests avec pytest, 
+- d'éxécuter les tests avec jest, 
 - puis si les tests sont verts : exécuter les étapes de mesure la qualité du code dans un stage `code-quality`
-- puis si les tests sont verts et la qualité OK : packager le code au format wheel avec une version unique.
+- puis si les tests sont verts et la qualité OK : packager le code et bump la version.
 
 🏁 **Objectif 1 : Packagez l'application en local au format Wheel.**
 
-🍜 Test de recette : une nouvelle step `package-wheel` un nouveau stage `build` dans le pipeline de CI doit permettre de produire un fichier au format .whl comme ceci : 
+🍜 Test de recette : une nouvelle step `package-function` un nouveau stage `build` dans le pipeline de CI doit permettre de produire un dossier comme ceci : 
 
 ![](./docs/exercice3-build-stage.png)
 
 ️🏁 **Objectif 2 : Rendre le package accessible en artéfact.**
 
-🍜 Test de recette : la step `package-wheel` doit exposer le contenu du dossier dist/ en artéfact afin de rendre le fichier .whl téléchargeable depuis l'interface web : 
+🍜 Test de recette : la step `package-function` doit exposer le contenu du dossier dist/ en artéfact afin de rendre le dossier téléchargeable depuis l'interface web : 
 
 ![](./docs/exercice3-build-artifact.png)
 
-️🏁 **Objectif 3 : Testez le wheel en local via les artéfacts**
+## BONUS : Deployer son artefact sur Azure (en CD)
 
-🍜 Test de recette : le wheel téléchargé via l'interface web et installé localement avec pip fonctionne comme suit : 
+```plaintext
+🎯 Objectif : Je veux deployer mon artefact sur Azure
+```
 
-![](./docs/exercice3-test-wheel-local.png)
+Dans ce dernier step Bonus, vous êtes en autonomie. 
+Nous voulons déployer notre fonction sur un service Azure (Azure Function App). Pour ce faire, modifiez le code Terraform pour créer votre Azf et les resources nécessaires.
+Dans un nouveau stage `deploy`, lancer les commandes Terraform requis et publier votre artefact.
 
-️🏁 **Objectif 4 : Stocker le package dans une registry PyPI privé sur gitlab**
+⛔️ Important : Ne changez pas les skus du Terraform. Les resources doivent rester en free tier.
 
-Gitlab met à disposition une registry PyPI par repository de code pour y entreposer les wheel produit automatiquement par la CI.
-
-[En suivant la documentation](https://docs.gitlab.com/ee/user/packages/pypi_repository/#authenticate-with-a-ci-job-token) dans la partie `Authenticate with a CI job token`, 
-modifiez la step `package-wheel` pour pousser le fichier .whl produit dans la registry PyPI du repository.
-
-🍜 Test de recette : le wheel produit par la step `package-wheel` est disponible dans la registry PyPI du repo : 
-
-![](./docs/exercice3-pypi.png)
-
-️🏁 **Objectif 5 (bonus) : Testez votre wheel, déposé dans la registry, après l'avoir installé en local avec pip install**
+🍜 Test de recette : Une Azure Function App est déployée sur le cloud et je peux appeler ma fonction en Http.

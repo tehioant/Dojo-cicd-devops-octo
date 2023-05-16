@@ -106,4 +106,7 @@ If you have run out of energy or time for your project, put a note at the top of
 # TODO
 - replace image exercice1-tests.png
 - exercice1-tests.png
-- 
+- exercice2-code-analysis.png
+- exercice2-allow-failure.png
+- github-artifacts.png
+- exercice3-build-stage.png

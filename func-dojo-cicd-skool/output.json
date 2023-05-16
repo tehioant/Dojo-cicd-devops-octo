@@ -1,0 +1,84 @@
+{
+  "numFailedTestSuites": 0,
+  "numFailedTests": 0,
+  "numPassedTestSuites": 2,
+  "numPassedTests": 2,
+  "numPendingTestSuites": 0,
+  "numPendingTests": 0,
+  "numRuntimeErrorTestSuites": 0,
+  "numTodoTests": 0,
+  "numTotalTestSuites": 2,
+  "numTotalTests": 2,
+  "openHandles": [ ],
+  "snapshot": {
+    "added": 0,
+    "didUpdate": false,
+    "failure": false,
+    "filesAdded": 0,
+    "filesRemoved": 0,
+    "filesRemovedList": [ ],
+    "filesUnmatched": 0,
+    "filesUpdated": 0,
+    "matched": 0,
+    "total": 0,
+    "unchecked": 0,
+    "uncheckedKeysByFile": [ ],
+    "unmatched": 0,
+    "updated": 0
+  },
+  "startTime": 1684181697549,
+  "success": true,
+  "testResults": [
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [
+            "Skool service tests"
+          ],
+          "duration": 3,
+          "failureDetails": [ ],
+          "failureMessages": [ ],
+          "fullName": "Skool service tests given request when service getSkoolResponse shoud return string response.",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 1,
+          "retryReasons": [ ],
+          "status": "passed",
+          "title": "given request when service getSkoolResponse shoud return string response."
+        }
+      ],
+      "endTime": 1684181699615,
+      "message": "",
+      "name": "/Users/a.tehio-pesselet/Documents/Formations/Dojo-cicd-devops-octo/func-dojo-cicd-skool/DojoCicdSkool/test/SkoolService.test.ts",
+      "startTime": 1684181697888,
+      "status": "passed",
+      "summary": ""
+    },
+    {
+      "assertionResults": [
+        {
+          "ancestorTitles": [
+            "Skool request tests"
+          ],
+          "duration": 3,
+          "failureDetails": [ ],
+          "failureMessages": [ ],
+          "fullName": "Skool request tests given payload should return SkoolRequest",
+          "invocations": 1,
+          "location": null,
+          "numPassingAsserts": 3,
+          "retryReasons": [ ],
+          "status": "passed",
+          "title": "given payload should return SkoolRequest"
+        }
+      ],
+      "endTime": 1684181699615,
+      "message": "",
+      "name": "/Users/a.tehio-pesselet/Documents/Formations/Dojo-cicd-devops-octo/func-dojo-cicd-skool/DojoCicdSkool/test/SkoolRequest.test.ts",
+      "startTime": 1684181697888,
+      "status": "passed",
+      "summary": ""
+    }
+  ],
+  "wasInterrupted": false
+}
