@@ -1,0 +1,25 @@
+{
+  "environment": "web",
+  "format": "html",
+  "prefix": "https://storage.googleapis.com",
+  "mainga": "UA-49880327-14",
+  "updated": "2023-05-16T16:30:18+02:00",
+  "id": "dojo-cicd-codelab-markdown",
+  "duration": 172,
+  "title": "DOJO - CI/CD DevOps",
+  "authors": "ANTE",
+  "summary": "dojo - cicd devops",
+  "source": "dojo.md",
+  "theme": "",
+  "status": [
+    "published"
+  ],
+  "category": [
+    "exercice"
+  ],
+  "tags": [
+    "exercice"
+  ],
+  "feedback": "https://github.com/tehioant/Dojo-cicd-devops-octo/issues/new",
+  "url": "dojo-cicd-codelab-markdown"
+}

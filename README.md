@@ -14,9 +14,23 @@ This DOJO introduces skoolers hands-on to CI/CD using Gitlab and by deploying so
 - ...
 
 
+### Set up
+
+Create a fork of the DOJO repository then clone your fork.
+
+![](./instructions/docs/create-fork.png)
+
+- Install go and claat using the provided script `codelab-script.sh`.
+
+```
+git clone https://github.com/<your-name>/Dojo-cicd-devops-octo
+cd Dojo-cicd-devops-octo
+./codelab-script.sh
+```
+
 ### Intructions
 
-Follow this [TD in markdown](https://www.google.com/)
+
 
 
 
@@ -110,3 +124,5 @@ If you have run out of energy or time for your project, put a note at the top of
 - exercice2-allow-failure.png
 - github-artifacts.png
 - exercice3-build-stage.png
+
+- write script install go & claat
