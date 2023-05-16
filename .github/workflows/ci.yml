@@ -18,3 +18,9 @@ jobs:
         working-directory: ./func-dojo-cicd-skool
       - run: npm test
         working-directory: ./func-dojo-cicd-skool
+
+  pages:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          go install github.com/googlecodelabs/tools/claat@latest

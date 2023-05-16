@@ -1,5 +1,5 @@
 summary: dojo - cicd devops
-id: dojo 
+id: dojo-cicd-codelab-markdown
 categories: exercice 
 tags: exercice 
 status: Published 
@@ -9,8 +9,7 @@ Feedback Link: https://github.com/tehioant/Dojo-cicd-devops-octo/issues/new
 # DOJO - CI/CD DevOps
 
 ## Overview
-
-Duration: 4 hours
+Duration: 0:02:00
 
 Objectifs pédagogique :
 
@@ -24,8 +23,8 @@ Objectifs pédagogique :
 👉 [Dispo sur le drive OCTO](https://docs.google.com/presentation/d/1kRS86ba0FT6grKMrwFyHaTTzEwl_cAeZE8Euqx3e9kM/edit#slide=id.g804284dca3_0_176).
 
 ## Presentation
+Duration: 0:05:00
 
-Duration: ?
 
 ### Environment
 
@@ -60,6 +59,7 @@ Pour les curieux qui veulent aller + loin sur la notion d'intégration continue 
 - <https://blog.octo.com/tag/continuous-integration/>
 
 ## Step 1 - Tests automatisés
+Duration: 0:10:00
 
 **🎯 Goal** : je veux obtenir du feedback sur le produit que je développe via les tests
 
@@ -89,6 +89,7 @@ Vous pouvez utiliser Makefile pour opérer votre projet et faciliter son utilisa
 Par example: ```$ make test```
 
 ## Step 2 - Tests automatisés (CI)
+Duration: 0:15:00
 
 **🎯 Objectif** : Je veux obtenir du feedback sur mes tests à chaque commit poussé sur ma branche de travail.
 
@@ -136,6 +137,7 @@ jobs:
 ```
 
 ## Step 3 - Jest report (bonus)
+Duration: 0:20:00
 
 ```plaintext
 ⚠️ Si vous vous sentez en retard; laissez de coté ce bonus; 
@@ -153,6 +155,7 @@ Vous pourrez y revenir plus tard 📅 🎱 🔮
 ![](./docs/github-artifacts.png)
 
 ## Step 4 : Mesure de la qualité du code (local)
+Duration: 0:20:00
 
 ```plaintext
 🎯 Objectif : Je veux obtenir du feedback sur la qualité du code sur commande.
@@ -218,6 +221,7 @@ Comme précédemment, prenez en note :
 Cela nous servira pour reproduire cela dans notre pipeline de CI dans le prochain exercice.
 
 ## Step 5 : Mesure de la qualité du code (CI)
+Duration: 0:20:00
 
 ```plaintext
 🎯 Objectif : Je veux obtenir du feedback sur la qualité du code automatiquement à chaque push d'un commit.
@@ -253,7 +257,8 @@ Pour permettre au pipeline de continuer, github propose la fonctionnalité [cont
 
 - ![](./docs/exercice2-allow-failure.png)
 
-## TP 6 : Packager du code de qualité (local)
+## Step 6 : Packager du code de qualité (local)
+Duration: 0:20:00
 
 ```plaintext
 🎯 Objectif : Je veux packager du code automatiquement.
@@ -272,7 +277,8 @@ npm run build
 ℹ️ Tips: vous pouvez utiliser la commande ```npm version patch``` \
 🍜 Test de recette : le package possède la version **1.18.27**, use ```npm version```
 
-## TP 7 : Packager du code de qualité (en CI)
+## Step 7 : Packager du code de qualité (en CI)
+Duration: 01:00:00
 
 ```plaintext
 🎯 Objectif : je veux packager du code automatiquement à chaque push d'un commit, si et seulement si les tests passent et la qualité du code est acceptable.
