@@ -16,10 +16,10 @@ module.exports = {
     // Use the rules from these plugins
     extends: [
         'plugin:@typescript-eslint/recommended',
-        'prettier',
         'airbnb',
-        'plugin:prettier/recommended',
-        'plugin:sonarjs/recommended',
-        // 'plugin:react/recommended' // If we need React
+      'plugin:prettier/recommended',
+      'plugin:sonarjs/recommended',
+      'prettier',
+      // 'plugin:react/recommended' // If we need React
     ]
 };
