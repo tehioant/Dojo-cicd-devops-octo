@@ -16,7 +16,6 @@ module.exports = {
     // Use the rules from these plugins
     extends: [
         'plugin:@typescript-eslint/recommended',
-        'airbnb',
         'prettier',
       // 'plugin:react/recommended' // If we need React
     ]
