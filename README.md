@@ -62,17 +62,3 @@ Using MIT License.
 
 ## Project status
 Published
-
-## TODO
-- replace image exercice1-tests.png
-- exercice1-tests.png
-- exercice2-code-analysis.png
-- exercice2-allow-failure.png
-- github-artifacts.png
-- exercice3-build-stage.png
-
-- write script install go & claat
-
-- redefinir les noms des stages selon le dojo (part presentation)
-- for main branch rm options on jest (package.json) && rm -- --json --outputFile=output.json on makefile
-- setup test to be red on main
