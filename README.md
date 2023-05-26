@@ -54,6 +54,10 @@ Serving codelabs on localhost:9090, opening browser tab now...
 On your browser click on `dojo/` \
 You can kill the running server as it is static.
 
+## Formateurs
+
+Switch to branch `formateur` for more informations regarding dojo's setup.
+
 ## Authors and acknowledgment
 This is a Dojo created for OCTO by Ante & Hefr.
 
