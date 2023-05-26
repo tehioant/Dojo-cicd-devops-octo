@@ -27,3 +27,38 @@ tests: install
 	npm test -- --json --outputFile=output.json
 	echo "[*] Rapports disponibles :"
 	echo "👉 file://`pwd`/output.json"
+
+.PHONY: plan-resources  ## 🚧 Plan provision resources
+plan-resources:
+	echo "Plan resources"
+	terraform -chdir=terraform/ init
+	terraform -chdir=terraform/ validate
+	terraform -chdir=terraform/ plan
+
+.PHONY: create-resources  ## 🛠 Deploy provision resources
+create-resources:
+	echo "Create resources"
+	terraform -chdir=terraform/ init
+	terraform -chdir=terraform/ validate
+	terraform -chdir=terraform/ apply -auto-approve
+
+.PHONY: destroy-resources  ## 💣 Destroy provision resources
+destroy-resources:
+	echo "[*] 🤖 make destroy-resources"
+	terraform -chdir=terraform/ init
+	terraform -chdir=terraform/ destroy -auto-approve
+
+.PHONY: terraform-format  ## 🧹 to reformat every Terraform files
+terraform-format:
+	$(info [*] Formatting Terraform files ...)
+	terraform fmt -recursive
+
+.PHONY: terraform-validate ## 🕵️‍♂️ to check if terraform files syntax is valid
+terraform-validate:
+	$(info [*] Validating Terraform files ...)
+	terraform -chdir=terraform validate
+
+.PHONY: terraform-upgrade  ## 🆕 to download new providers after you manually update their version
+terraform-upgrade:
+	$(info [*] Upgrade Terraform provider versions ...)
+	terraform -chdir=terraform/ init -upgrade
