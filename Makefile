@@ -28,6 +28,18 @@ tests: install
 	echo "[*] Rapports disponibles :"
 	echo "👉 file://`pwd`/output.json"
 
+.PHONY: upload-codelabs ## 👆 Upload login page assets from sources
+upload-codelabs:
+	echo "[*] Export dojo.md"
+	claat export instructions/dojo.md
+	echo "[*] Uploading codelabs ..."
+	az storage blob sync \
+		--account-name sadojocodelabs \
+		--account-key ${storageAccountKey} \
+		--container scdojocodelabs \
+		-s instructions/dojo-cicd-codelab-markdown \
+		--delete-destination true
+
 .PHONY: plan-resources  ## 🚧 Plan provision resources
 plan-resources:
 	echo "Plan resources"

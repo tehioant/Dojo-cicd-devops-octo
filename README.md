@@ -63,16 +63,23 @@ Using MIT License.
 ## Project status
 Published
 
-## TODO
-- replace image exercice1-tests.png
-- exercice1-tests.png
-- exercice2-code-analysis.png
-- exercice2-allow-failure.png
-- github-artifacts.png
-- exercice3-build-stage.png
+# Formateurs
 
-- write script install go & claat
+## Deploy instructions
 
-- redefinir les noms des stages selon le dojo (part presentation)
-- for main branch rm options on jest (package.json) && rm -- --json --outputFile=output.json on makefile
-- setup test to be red on main
+Attendies need to access the instructions.
+Since we are using Codelabs, you need to create a storage account or any other way to deploy the Codelabs static site online.
+
+If you wish to use Azure storage account, modify the Terraform files.
+You can use the Makefile target to build and deploy your folder.
+
+You can find help regarding Codelabs here: [Github link](https://github.com/googlecodelabs/tools)
+
+
+## Tips
+
+You should check if versions are up to date (Terraform, Typescript, ...).
+
+## To Be Done
+
+- Maybe provide a solution for the Dojo. Not a priority at the moment. 
